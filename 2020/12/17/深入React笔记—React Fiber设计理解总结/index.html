@@ -4,13 +4,13 @@
 <head>
   <meta charset="utf-8">
   
-  <title>深入React笔记 — Fiber | blog</title>
+  <title>深入React笔记 — Fiber | 很有精神的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="UI &#x3D; f(state)回到React最核心的构建UI过程，即UI &#x3D; f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State， f这个过程发生了什么旧架构的过程从React15版本旧架构来说，react这个过程共做两件事，第一是根据新的state计算出新的vdom数据，第二是将新vdom更新到页面上去。第一阶段React">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入React笔记 — Fiber">
 <meta property="og:url" content="http://example.com/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/index.html">
-<meta property="og:site_name" content="blog">
+<meta property="og:site_name" content="很有精神的博客">
 <meta property="og:description" content="UI &#x3D; f(state)回到React最核心的构建UI过程，即UI &#x3D; f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State， f这个过程发生了什么旧架构的过程从React15版本旧架构来说，react这个过程共做两件事，第一是根据新的state计算出新的vdom数据，第二是将新vdom更新到页面上去。第一阶段React">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/197690/1605935969176-f5be9499-669c-4ca1-8e9e-7326a7147878.png#align=left&display=inline&height=253&margin=%5Bobject%20Object%5D&name=image.png&originHeight=309&originWidth=550&size=174859&status=done&style=none&width=450">
@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2020/png/197690/1605935969176-f5be9499-669c-4ca1-8e9e-7326a7147878.png#align=left&display=inline&height=253&margin=%5Bobject%20Object%5D&name=image.png&originHeight=309&originWidth=550&size=174859&status=done&style=none&width=450">
   
-    <link rel="alternative" href="/atom.xml" title="blog" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="很有精神的博客" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -41,7 +41,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">blog</a>
+        <a href="/" id="logo">很有精神的博客</a>
       </h1>
       
     </div>
