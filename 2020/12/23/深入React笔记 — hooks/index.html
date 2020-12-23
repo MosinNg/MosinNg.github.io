@@ -4,22 +4,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>深入React笔记 — hooks漫谈 | blog</title>
+  <title>深入React笔记 — hooks | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="年初的时候，从头大的flutter终于转回了老本行js代码，就此第一次开始接触了hooks。 一开始看useState这些api其实很奇怪的，返回一个数组，第一个数组项目是value，第二个是setValue的函数。然后就是useEffect，useCallback这些，有点套不上原来class组件的思维。但一年下来，感觉非常爽，就个人感觉hooks理念相比其他前端框架跃进了一大截。 为什么需要h">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入React笔记 — hooks漫谈">
+<meta property="og:title" content="深入React笔记 — hooks">
 <meta property="og:url" content="http://example.com/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/index.html">
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="年初的时候，从头大的flutter终于转回了老本行js代码，就此第一次开始接触了hooks。 一开始看useState这些api其实很奇怪的，返回一个数组，第一个数组项目是value，第二个是setValue的函数。然后就是useEffect，useCallback这些，有点套不上原来class组件的思维。但一年下来，感觉非常爽，就个人感觉hooks理念相比其他前端框架跃进了一大截。 为什么需要h">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bdc1616f-e0c6-446a-9b3b-dcbc73c9ca9a/Untitled.png">
+<meta property="og:image" content="http://example.com/images/hooks-1.jpg">
 <meta property="article:published_time" content="2020-12-23T05:43:56.321Z">
-<meta property="article:modified_time" content="2020-12-23T06:49:42.452Z">
+<meta property="article:modified_time" content="2020-12-23T13:07:34.863Z">
 <meta property="article:author" content="MosinNg">
 <meta property="article:tag" content="React">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bdc1616f-e0c6-446a-9b3b-dcbc73c9ca9a/Untitled.png">
+<meta name="twitter:image" content="http://example.com/images/hooks-1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="blog" type="application/atom+xml">
   
@@ -87,7 +87,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      深入React笔记 — hooks漫谈
+      深入React笔记 — hooks
     </h1>
   
 
@@ -100,23 +100,23 @@
 <h2 id="为什么需要hooks"><a href="#为什么需要hooks" class="headerlink" title="为什么需要hooks"></a>为什么需要hooks</h2><h3 id="增强function组件"><a href="#增强function组件" class="headerlink" title="增强function组件"></a>增强function组件</h3><p>这个hooks最招牌的好处，function组件本身非常简洁，但在React原来的写法中，只能承担渲染无state变化逻辑的纯组件，但引入hooks后，能使函数组件使用管理state和“管理声明周期”的能力。</p>
 <h3 id="从理解上更符合React理念"><a href="#从理解上更符合React理念" class="headerlink" title="从理解上更符合React理念"></a>从理解上更符合React理念</h3><p>React核心过程UI=f(state)，其本身就是一个函数组件。函数组件精准的阐述了React对应构建用户界面的理念。class组件更像是非必要的妥协。而且有时也有问题：<a href="%5Bhttps://overreacted.io/zh-hans/how-are-function-components-different-from-classes/%5D(https://overreacted.io/zh-hans/how-are-function-components-different-from-classes/)">函数式组件与类组件有何不同？</a></p>
 <p>而hooks对应生成最终UI的state管理就像函数式编程的嵌套调用。</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是伪代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数组件我们这么写</span></span><br><span class="line"><span class="keyword">const</span> APP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> [state1] = useState();</span><br><span class="line">	<span class="keyword">const</span> [state2] = useState();</span><br><span class="line">	render(&#123;</span><br><span class="line">		state1, </span><br><span class="line">		state2</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 就如同函数式编程的嵌套调用</span></span><br><span class="line">APP = React.render(</span><br><span class="line">  useState2(</span><br><span class="line">	  useState1(</span><br><span class="line">      initState</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>这一切看起来非常自然且易于调试理解，甚至就像dan的博客提到<a target="_blank" rel="noopener" href="https://overreacted.io/zh-hans/the-bug-o-notation/">https://overreacted.io/zh-hans/the-bug-o-notation/</a>的bug复杂度是bug(o)。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是伪代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数组件我们这么写</span></span><br><span class="line"><span class="keyword">const</span> APP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state1] = useState();</span><br><span class="line">  <span class="keyword">const</span> [state2] = useState();</span><br><span class="line">  render(&#123;</span><br><span class="line">    state1, </span><br><span class="line">    state2</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 就如同函数式编程的嵌套调用</span></span><br><span class="line">APP = React.render(</span><br><span class="line">  useState2(</span><br><span class="line">    useState1(</span><br><span class="line">      initState</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>这一切看起来非常自然且易于调试理解，甚至就像dan的博客提到<a target="_blank" rel="noopener" href="https://overreacted.io/zh-hans/the-bug-o-notation/">“Bug-O” 表示法</a>的bug复杂度是bug(o)。</p>
 <h3 id="逻辑复用"><a href="#逻辑复用" class="headerlink" title="逻辑复用"></a>逻辑复用</h3><p>这个写过的都知道，hooks的状态复用非常爽。其实其他框架在之前都解决了ui的组件化问题，但常常复杂工程带来的就是集成这些小组件的主控组件非常庞大，需要管理非常多的子组件状态。而hooks则可以将这些state拆分出去。</p>
 <h2 id="hooks工作原理"><a href="#hooks工作原理" class="headerlink" title="hooks工作原理"></a>hooks<strong>工作原理</strong></h2><h2 id="hooks不足"><a href="#hooks不足" class="headerlink" title="hooks不足"></a>hooks不足</h2><h3 id="逻辑复用的陷阱"><a href="#逻辑复用的陷阱" class="headerlink" title="逻辑复用的陷阱"></a>逻辑复用的陷阱</h3><p>之前说hooks的一点非常好的地方就是逻辑的复用非常方便，可以将管理state逻辑非常容易的拆分出去，但有时经常碰到“复用”过度的地方：hooks嵌套组合非常复杂，导致阅读调试非常烦。我曾经遇到的例子如下图：</p>
-<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bdc1616f-e0c6-446a-9b3b-dcbc73c9ca9a/Untitled.png" alt="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bdc1616f-e0c6-446a-9b3b-dcbc73c9ca9a/Untitled.png"></p>
+<p><img src="/images/hooks-1.jpg" alt="hooks-1"></p>
 <p>类似于这样吧，嵌套了四五层，导致看一个数据处理逻辑非常繁琐，也不知道谁修改了某个state。</p>
 <p>不过这个也不能算是hooks的设计缺陷，只不过需要实践中更好的管理hooks，复杂的项目一定要设计好hooks的逻辑架构，否则经常出现来一个人写需求不管三七二十一，先写个hooks，然后导入进去，最后导致hooks逻辑一片混乱。</p>
 <h3 id="依赖变化追踪复杂"><a href="#依赖变化追踪复杂" class="headerlink" title="依赖变化追踪复杂"></a>依赖变化追踪复杂</h3><p>即使hooks用了很长的时间，useEffect死循环渲染，和一些不必要的重复render。</p>
 <p>可以通过useMemo来解决，但就如同上面一条说的，大型项目state多且变化逻辑复杂的时候，很难避免这些问题。比如React经常向下传值的写法：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = <span class="function">(<span class="params">&#123;config&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> [state, setState] = useState();</span><br><span class="line">	useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">		setState(<span class="string">&#x27;XXXXX&#x27;</span>);</span><br><span class="line">	&#125;, [config])</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> APP = () &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Child</span> </span></span></span><br><span class="line"><span class="xml">		config=&#123;&#123;</span></span><br><span class="line"><span class="xml">			name: &#x27;XXX&#x27;</span></span><br><span class="line"><span class="xml">		&#125;&#125;</span></span><br><span class="line"><span class="xml">	/&gt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = <span class="function">(<span class="params">&#123;config&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [state, setState] = useState();</span><br><span class="line">  useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    setState(<span class="string">&#x27;XXXXX&#x27;</span>);</span><br><span class="line">  &#125;, [config])</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> APP = () &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Child</span> </span></span></span><br><span class="line"><span class="xml">    config=&#123;&#123;</span></span><br><span class="line"><span class="xml">      name: &#x27;XXX&#x27;</span></span><br><span class="line"><span class="xml">    &#125;&#125;</span></span><br><span class="line"><span class="xml">  /&gt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>看似config在新的一次渲染中没有改变，但由于这种写法，每次都会创建新对象，导致React每次都认为config发生了新的变化，从而导致子组件的死循环渲染。</p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://example.com/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/" data-id="ckj13ic9n00019s5i2r472kk7" class="article-share-link" data-share="baidu" data-title="深入React笔记 — hooks漫谈">分享到</a>
+        <a data-url="http://example.com/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/" data-id="ckj13ic9n00019s5i2r472kk7" class="article-share-link" data-share="baidu" data-title="深入React笔记 — hooks">分享到</a>
       
 
       
@@ -145,7 +145,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2020/12/23/深入React笔记 — hooks/" data-title="深入React笔记 — hooks漫谈" data-url="http://example.com/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/12/23/深入React笔记 — hooks/" data-title="深入React笔记 — hooks" data-url="http://example.com/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/"></div>
   </section>
 </section>
       
@@ -158,7 +158,7 @@
       <ul>
         
           <li>
-            <a href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">深入React笔记 — hooks漫谈</a>
+            <a href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">深入React笔记 — hooks</a>
           </li>
         
           <li>
@@ -166,7 +166,15 @@
           </li>
         
           <li>
-            <a href="/2020/01/04/2019%E6%80%BB%E7%BB%93/">2019总结</a>
+            <a href="/2020/12/15/codereview%E4%B8%AA%E4%BA%BA%E6%B8%85%E5%8D%95/">Code Review个人清单</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/13/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0-%E6%97%B6%E9%97%B4%E5%88%87%E7%89%87%E7%9A%84%E6%89%A7%E8%A1%8C%E5%AE%9E%E7%8E%B0/">深入React笔记 — 时间切片执行</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/09/%E5%BE%AE%E5%89%8D%E7%AB%AFqiankun%E6%BA%90%E7%A0%81%E7%AC%94%E8%AE%B0/">微前端qiankun源码笔记</a>
           </li>
         
       </ul>
@@ -178,7 +186,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a>
+      <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/%E5%B7%A5%E7%A8%8B/" style="font-size: 15px;">工程</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a>
     </div>
   </div>
 
@@ -189,7 +197,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B/" rel="tag">工程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -198,7 +206,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
