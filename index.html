@@ -1,2 +1,435 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>Hexo</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Hexo</h1><a id="logo" href="/.">Hexo</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">深入React笔记 — hooks漫谈</a></h1><div class="post-meta">2020-12-23</div><div class="post-content"><p>年初的时候，从头大的flutter终于转回了老本行js代码，就此第一次开始接触了hooks。</p>
-<p>一开始看useState这些api其实很奇怪的，返回一个数组，第一个数组项目是value，第二个是setValue的函数。然后就是useEffect，useCallback这些，有点套不上原来class组件的思维。但一年下来，感觉非常爽，就个人感觉hooks理念相比其他前端框架跃进了一大截。</p></div><p class="readmore"><a href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">深入React笔记 — Fiber</a></h1><div class="post-meta">2020-12-17</div><div class="post-content"><h2 id="UI-f-state"><a href="#UI-f-state" class="headerlink" title="UI = f(state)"></a>UI = f(state)</h2><p>回到React最核心的构建UI过程，即UI = f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State，</p></div><p class="readmore"><a href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">Read More</a></p></div><div class="post"><h1 class="post-title"><a href="/2020/01/04/2019%E6%80%BB%E7%BB%93/">2019总结</a></h1><div class="post-meta">2020-01-04</div><div class="post-content"><h2 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h2><p>2019对我而言是非常值得纪念的一年，完成了许多大事。<br>2019.5.3回老家办了一场热热闹闹的婚礼，婚礼的筹备基本上我俩都没参与过，父母在老家准备好了，我俩飞回去结完婚又滚回来上班了。<br>下半年老婆又怀孕了，给我非常大的惊喜，感觉责任又重了一层，期待明年的鼠宝宝。<br>今年没出去旅游。</p></div><p class="readmore"><a href="/2020/01/04/2019%E6%80%BB%E7%BB%93/">Read More</a></p></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://example.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/React/" style="font-size: 15px;">React</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 15px;">生活</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">深入React笔记 — hooks漫谈</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">深入React笔记 — Fiber</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/04/2019%E6%80%BB%E7%BB%93/">2019总结</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Hexo.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="blog">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="MosinNg">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="example.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main">
+  
+    <article id="post-深入React笔记 — hooks" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/" class="article-date">
+  <time datetime="2020-12-23T05:43:56.321Z" itemprop="datePublished">2020-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">深入React笔记 — hooks漫谈</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>年初的时候，从头大的flutter终于转回了老本行js代码，就此第一次开始接触了hooks。</p>
+<p>一开始看useState这些api其实很奇怪的，返回一个数组，第一个数组项目是value，第二个是setValue的函数。然后就是useEffect，useCallback这些，有点套不上原来class组件的思维。但一年下来，感觉非常爽，就个人感觉hooks理念相比其他前端框架跃进了一大截。</p>
+<h2 id="为什么需要hooks"><a href="#为什么需要hooks" class="headerlink" title="为什么需要hooks"></a>为什么需要hooks</h2><h3 id="增强function组件"><a href="#增强function组件" class="headerlink" title="增强function组件"></a>增强function组件</h3><p>这个hooks最招牌的好处，function组件本身非常简洁，但在React原来的写法中，只能承担渲染无state变化逻辑的纯组件，但引入hooks后，能使函数组件使用管理state和“管理声明周期”的能力。</p>
+<h3 id="从理解上更符合React理念"><a href="#从理解上更符合React理念" class="headerlink" title="从理解上更符合React理念"></a>从理解上更符合React理念</h3><p>React核心过程UI=f(state)，其本身就是一个函数组件。函数组件精准的阐述了React对应构建用户界面的理念。class组件更像是非必要的妥协。而且有时也有问题：<a href="%5Bhttps://overreacted.io/zh-hans/how-are-function-components-different-from-classes/%5D(https://overreacted.io/zh-hans/how-are-function-components-different-from-classes/)">函数式组件与类组件有何不同？</a></p>
+<p>而hooks对应生成最终UI的state管理就像函数式编程的嵌套调用。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是伪代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数组件我们这么写</span></span><br><span class="line"><span class="keyword">const</span> APP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> [state1] = useState();</span><br><span class="line">	<span class="keyword">const</span> [state2] = useState();</span><br><span class="line">	render(&#123;</span><br><span class="line">		state1, </span><br><span class="line">		state2</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 就如同函数式编程的嵌套调用</span></span><br><span class="line">APP = React.render(</span><br><span class="line">  useState2(</span><br><span class="line">	  useState1(</span><br><span class="line">      initState</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>这一切看起来非常自然且易于调试理解，甚至就像dan的博客提到<a target="_blank" rel="noopener" href="https://overreacted.io/zh-hans/the-bug-o-notation/">https://overreacted.io/zh-hans/the-bug-o-notation/</a>的bug复杂度是bug(o)。</p>
+<h3 id="逻辑复用"><a href="#逻辑复用" class="headerlink" title="逻辑复用"></a>逻辑复用</h3><p>这个写过的都知道，hooks的状态复用非常爽。其实其他框架在之前都解决了ui的组件化问题，但常常复杂工程带来的就是集成这些小组件的主控组件非常庞大，需要管理非常多的子组件状态。而hooks则可以将这些state拆分出去。</p>
+<h2 id="hooks工作原理"><a href="#hooks工作原理" class="headerlink" title="hooks工作原理"></a>hooks<strong>工作原理</strong></h2><h2 id="hooks不足"><a href="#hooks不足" class="headerlink" title="hooks不足"></a>hooks不足</h2><h3 id="逻辑复用的陷阱"><a href="#逻辑复用的陷阱" class="headerlink" title="逻辑复用的陷阱"></a>逻辑复用的陷阱</h3><p>之前说hooks的一点非常好的地方就是逻辑的复用非常方便，可以将管理state逻辑非常容易的拆分出去，但有时经常碰到“复用”过度的地方：hooks嵌套组合非常复杂，导致阅读调试非常烦。我曾经遇到的例子如下图：</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bdc1616f-e0c6-446a-9b3b-dcbc73c9ca9a/Untitled.png" alt="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bdc1616f-e0c6-446a-9b3b-dcbc73c9ca9a/Untitled.png"></p>
+<p>类似于这样吧，嵌套了四五层，导致看一个数据处理逻辑非常繁琐，也不知道谁修改了某个state。</p>
+<p>不过这个也不能算是hooks的设计缺陷，只不过需要实践中更好的管理hooks，复杂的项目一定要设计好hooks的逻辑架构，否则经常出现来一个人写需求不管三七二十一，先写个hooks，然后导入进去，最后导致hooks逻辑一片混乱。</p>
+<h3 id="依赖变化追踪复杂"><a href="#依赖变化追踪复杂" class="headerlink" title="依赖变化追踪复杂"></a>依赖变化追踪复杂</h3><p>即使hooks用了很长的时间，useEffect死循环渲染，和一些不必要的重复render。</p>
+<p>可以通过useMemo来解决，但就如同上面一条说的，大型项目state多且变化逻辑复杂的时候，很难避免这些问题。比如React经常向下传值的写法：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = <span class="function">(<span class="params">&#123;config&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> [state, setState] = useState();</span><br><span class="line">	useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">		setState(<span class="string">&#x27;XXXXX&#x27;</span>);</span><br><span class="line">	&#125;, [config])</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> APP = () &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Child</span> </span></span></span><br><span class="line"><span class="xml">		config=&#123;&#123;</span></span><br><span class="line"><span class="xml">			name: &#x27;XXX&#x27;</span></span><br><span class="line"><span class="xml">		&#125;&#125;</span></span><br><span class="line"><span class="xml">	/&gt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看似config在新的一次渲染中没有改变，但由于这种写法，每次都会创建新对象，导致React每次都认为config发生了新的变化，从而导致子组件的死循环渲染。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://example.com/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/" data-id="ckj0zzj830000935idgbqg9td" class="article-share-link" data-share="baidu" data-title="深入React笔记 — hooks漫谈">分享到</a>
+      
+
+      
+        <a href="http://example.com/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-深入React笔记—React Fiber设计理解总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" class="article-date">
+  <time datetime="2020-12-16T16:00:00.000Z" itemprop="datePublished">2020-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">深入React笔记 — Fiber</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="UI-f-state"><a href="#UI-f-state" class="headerlink" title="UI = f(state)"></a>UI = f(state)</h2><p>回到React最核心的构建UI过程，即UI = f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State，</p>
+<h2 id="f这个过程发生了什么"><a href="#f这个过程发生了什么" class="headerlink" title="f这个过程发生了什么"></a>f这个过程发生了什么</h2><h3 id="旧架构的过程"><a href="#旧架构的过程" class="headerlink" title="旧架构的过程"></a>旧架构的过程</h3><p>从React15版本旧架构来说，react这个过程共做两件事，第一是根据新的state计算出新的vdom数据，第二是<br>将新vdom更新到页面上去。<br>第一阶段React称之为Reconciler协调器，大名鼎鼎的diff算法就发生在这里，它将生成最新的vdom数据。<br>第二阶段称为Render渲染器，它的职责则是将生成的vdom数据更新到页面上。<br>那么这个过程有什么问题呢，最大的硬伤在于之前的协调器这个过程遍历的时候是通过递归的方式的，所以原先的设计也被称为Stack Reconciler。这个深度优先的查找遍历树的过程是不可中断的，也就是说setState一旦发起一次更新好，就必须一直运行下去。设想这样一个场景，当页面变得非常复杂，vdom树结构也很庞大时候，setState执行更新，遍历生成新vdom树需要很长的时间，这时候用户在input输入框中编辑输入，新的更新需要立即响应到页面，但React前一个协调任务无法中断，导致用户输入的时候发现无法显示到屏幕上，自然觉得非常卡顿了。</p>
+<p>所以新架构的首要解决问题，以便在更高优先级的更新任务来临的时候，可以中断前一个优先级低的更新任务，从而响应优先级高的任务。<br>于是React设计出了新的架构-Fiber。</p>
+<h2 id="Fiber是什么"><a href="#Fiber是什么" class="headerlink" title="Fiber是什么"></a>Fiber是什么</h2><p>Fiber有多层涵义，</p>
+<ol>
+<li>首先从计算机名称的角度来说，Fiber指的类似于协程，线程的调度单位。</li>
+</ol>
+<p>维基百科上的解释：</p>
+<blockquote>
+<p>在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8">计算机科学</a>中，<strong>纤程</strong>（英语：Fiber）是一种最轻量化的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B">线程</a>（lightweight threads）。它是一种用户态线程（user thread），让<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F">应用程序</a>可以独立决定自己的线程要如何运作。操作系统<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%86%85%E6%A0%B8">内核</a>不能看见它，也不会为它进行<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%8E%92%E7%A8%8B">调度</a>。<br>就像一般的线程，纤程有自己的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AE%9A%E5%9D%80%E7%A9%BA%E9%96%93">寻址空间</a>。但是纤程采取合作式多任务（Cooperative multitasking），而线程采取先占式多任务（Pre-emptive multitasking）。应用程序可以在一个线程环境中创建多个纤程，然后手动运行它。纤程不会被自动运行，必须要由<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F">应用程序</a>自己指定让它运行，或换到下一个纤程。<br>跟线程相比，纤程较不需要<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1">操作系统</a>的支持。</p>
+</blockquote>
+<p>这意味着，React将每次协调任务视作一个<strong>纤程</strong>，React可以任意调度中断每次Fiber。</p>
+<ol start="2">
+<li>其次Fiber在React指的是新vdom结构，React会将整个页面重构成用Fiber树来表达的数据结构。</li>
+</ol>
+<p>下图是网上找的数据结构示意图。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/197690/1605935969176-f5be9499-669c-4ca1-8e9e-7326a7147878.png#align=left&display=inline&height=253&margin=%5Bobject%20Object%5D&name=image.png&originHeight=309&originWidth=550&size=174859&status=done&style=none&width=450" alt="image.png"></p>
+<h3 id="Fiber如何解决问题的"><a href="#Fiber如何解决问题的" class="headerlink" title="Fiber如何解决问题的"></a>Fiber如何解决问题的</h3><p>如上提出的React响应高优先的问题，Fiber是如何解决的呢。</p>
+<ol>
+<li>可中断的协调过程。前面已经讲了，为了不使一个更新任务运行时长过长，阻塞高优先级任务，必须在协调过程中设计成可以中断执行的任务。所以React设计了刚刚将了Fiber数据结构，它看似是个树，实际却是用链表连接起来的，整个过程表面是深度优先遍历，实际操作是链表的遍历，这样就可以在执行过程中任意中断遍历了。</li>
+<li>双缓存树设计。这个是为了解决页面抖动过程的，在图像领域里面用的很多。具体的来讲，就是当前页面状态是一个Fiber树（currentFiber），协调过程中又有一个正在计算的Fiber树（workInProgressFiber），在后台计算好新的Fiber树后，才会替换现在的Fiber树，避免出现更新中断的情况。</li>
+<li>时间切片技术，这个是为了优化游览器主渲染进程的。听起来挺牛逼的，其实就是防止游览器渲染进程正在做大事的时候，React突然塞入一大堆更新计算，导致游览器卡顿的。React现在接到setState更新的时候，如果不是优先级最高的任务（过期任务），是讲这个任务塞入一个全局的异步更新队列里面，然后用类似requestAnimationFrame（React没有用这个api，而且自己实现模拟了这个api）的函数将任务等待游览器空闲的时候才执行。使得每次更新任务不会太长，理想情况不超过16ms（因为要达到60帧，1000 / 60, React的时间切片是5ms执行一次）。</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/197690/1606050805641-75ffd97f-d8e9-433f-b07b-d0120ae29bd6.png#align=left&display=inline&height=148&margin=%5Bobject%20Object%5D&name=image.png&originHeight=296&originWidth=794&size=181167&status=done&style=none&width=397" alt="image.png"></p>
+<ol start="4">
+<li>增加优先级调度模块，在原来React过程中，协调器计算出新的vdom结构后，会直接交给渲染器执行，而React16后，在这两个过程前，又新增了调度模块，负责调度任务优先级。react将事件分为三类：<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>解释</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DiscreteEvent</td>
+<td>离散事件，这些事件都是离散触发的</td>
+<td>blur、focus、 click、 submit、 touchStart</td>
+</tr>
+<tr>
+<td>UserBlockingEvent</td>
+<td>用户阻塞事件，这些事件会阻塞用户的交互</td>
+<td>touchMove、mouseMove、scroll、drag、dragOver</td>
+</tr>
+<tr>
+<td>ContinuousEvent</td>
+<td>连续事件，需要同步执行，不能被中断，优先级最高。</td>
+<td>load、error、loadStart、abort、animationEnd</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<p>每一类事件都被赋予了一个timeout，具体的优先级计算就是用现在的时间+timeout，得出过期时间expirationTime，然后看谁的优先级更大，则这个更新会被优先执行。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://example.com/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" data-id="ckj11nbnz0002ib5i4vov0isv" class="article-share-link" data-share="baidu" data-title="深入React笔记 — Fiber">分享到</a>
+      
+
+      
+        <a href="http://example.com/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2019总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/04/2019%E6%80%BB%E7%BB%93/" class="article-date">
+  <time datetime="2020-01-03T16:00:00.000Z" itemprop="datePublished">2020-01-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/04/2019%E6%80%BB%E7%BB%93/">2019总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h2><p>2019对我而言是非常值得纪念的一年，完成了许多大事。<br>2019.5.3回老家办了一场热热闹闹的婚礼，婚礼的筹备基本上我俩都没参与过，父母在老家准备好了，我俩飞回去结完婚又滚回来上班了。<br>下半年老婆又怀孕了，给我非常大的惊喜，感觉责任又重了一层，期待明年的鼠宝宝。<br>今年没出去旅游。</p>
+<h2 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h2><p>上半年在老东家一度被搞得很头大，虽然是绩效拿了个A，不过感觉毫无进步，每天处理一些琐事，在BU换了老板之后，所在业务部门也被边缘化了，业务不停的折腾搞得技术部门也没信心了。<br>不过上半年算是读完了vue.js的源码，不多的进步。<br>下半年七月份终于下定决心换了一次工作，从老东家出来去了一个创业公司，辞职的理由就两条</p>
+<ol>
+<li>对所在的业务部门发展丧失信心了，感觉没啥前途</li>
+<li>收入0增长</li>
+</ol>
+<p>钱少受委屈了，一个字，溜。<br>最令我感动的是，我走的那天，leader专门跑过来问我几点办完手续，当我办完之后，集结了全团队的人送我到楼下，不管是不是例行公事，我反正是感动了。甚至还感觉对不起leader对我的期待。<br>去新创业公司后，最开始还是非常不适应，比之前忙多了，不过慢慢的适合节奏后，还是觉得挺靠谱的。新公司的业务前景不错，也有足够的盈利能力，团队也不错，在这场寒冬中仍然保持扩张的劲头，起码现在这个时间点回头看，觉得自己选择还是没错。<br>新公司在对前端的要求有点全栈的意思，app也是全flutter，内部系统也有很多有意思的项目用node，舞台也比较广阔，不光是撸HTML，可以有更多实践其他领域的机会。<br>于是下半年的重要进步就是flutter和一些原生的知识，另外写dart久了，再写动态语言js都有点不习惯，以前老觉得typesript没用，现在不自觉的用上了。</p>
+<h2 id="投资"><a href="#投资" class="headerlink" title="投资"></a>投资</h2><p>年初给自己定了个目标，说自己要今年被动收益要超过一万。没想到年末总结下来，投资收益大大超过了这个数，包括股票，基金，出租车库收入已经过4w了。<br>不过使我惊喜的不是这个收益数目，而是摸到了一点投资的门槛，开始读了很多投资的书，包括不限于《巴菲特致股东的信》，《投资最重要的事》和一些雪球出的《投资第一课》《手把手教你读财报》，也完成了mooc上清华大学的《财务分析》课程，瞎总结了一点自己的投资风格和思路，在雪球上写了一点总结文章 <a target="_blank" rel="noopener" href="https://xueqiu.com/5184145379/138219357">https://xueqiu.com/5184145379/138219357</a></p>
+<h2 id="读书和电影"><a href="#读书和电影" class="headerlink" title="读书和电影"></a>读书和电影</h2><p>今年很少去电影院，基本就是在家看已经免费的电影，所以印象最深的就是很多人吹的《流浪地球》大失所望，特效还行，故事是真的莫名其妙。<br>读书印象最深的除了一大堆投资书就是《曾国藩》，浩浩荡荡的三大本(在微信读书上看的），也开始理解为什么现在那么多人喜欢在曾国藩身上得到点东西。</p>
+<h2 id="祝福2020"><a href="#祝福2020" class="headerlink" title="祝福2020"></a>祝福2020</h2><p>期待2020</p>
+<ol>
+<li>期待自己的鼠宝宝</li>
+<li>期待自己能成为一名更加全栈的工程师</li>
+<li>期待投资上更成熟</li>
+<li>期待输出更多的文章</li>
+<li>期待一个更好的自己</li>
+</ol>
+<p>2019，再见了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://example.com/2020/01/04/2019%E6%80%BB%E7%BB%93/" data-id="ckj11nbns0000ib5ihf15bz80" class="article-share-link" data-share="baidu" data-title="2019总结">分享到</a>
+      
+
+      
+        <a href="http://example.com/2020/01/04/2019%E6%80%BB%E7%BB%93/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">深入React笔记 — hooks漫谈</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">深入React笔记 — Fiber</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/04/2019%E6%80%BB%E7%BB%93/">2019总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a>
+    </div>
+  </div>
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 MosinNg<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

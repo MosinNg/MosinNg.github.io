@@ -1,4 +1,102 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>深入React笔记 — Fiber | Hexo</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">深入React笔记 — Fiber</h1><a id="logo" href="/.">Hexo</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">深入React笔记 — Fiber</h1><div class="post-meta">2020-12-17</div><div class="post-content"><h2 id="UI-f-state"><a href="#UI-f-state" class="headerlink" title="UI = f(state)"></a>UI = f(state)</h2><p>回到React最核心的构建UI过程，即UI = f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State，</p>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>深入React笔记 — Fiber | blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="UI &#x3D; f(state)回到React最核心的构建UI过程，即UI &#x3D; f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State， f这个过程发生了什么旧架构的过程从React15版本旧架构来说，react这个过程共做两件事，第一是根据新的state计算出新的vdom数据，第二是将新vdom更新到页面上去。第一阶段React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入React笔记 — Fiber">
+<meta property="og:url" content="http://example.com/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="UI &#x3D; f(state)回到React最核心的构建UI过程，即UI &#x3D; f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State， f这个过程发生了什么旧架构的过程从React15版本旧架构来说，react这个过程共做两件事，第一是根据新的state计算出新的vdom数据，第二是将新vdom更新到页面上去。第一阶段React">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/197690/1605935969176-f5be9499-669c-4ca1-8e9e-7326a7147878.png#align=left&display=inline&height=253&margin=%5Bobject%20Object%5D&name=image.png&originHeight=309&originWidth=550&size=174859&status=done&style=none&width=450">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/197690/1606050805641-75ffd97f-d8e9-433f-b07b-d0120ae29bd6.png#align=left&display=inline&height=148&margin=%5Bobject%20Object%5D&name=image.png&originHeight=296&originWidth=794&size=181167&status=done&style=none&width=397">
+<meta property="article:published_time" content="2020-12-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-23T06:49:27.530Z">
+<meta property="article:author" content="MosinNg">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2020/png/197690/1605935969176-f5be9499-669c-4ca1-8e9e-7326a7147878.png#align=left&display=inline&height=253&margin=%5Bobject%20Object%5D&name=image.png&originHeight=309&originWidth=550&size=174859&status=done&style=none&width=450">
+  
+    <link rel="alternative" href="/atom.xml" title="blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="example.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-深入React笔记—React Fiber设计理解总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" class="article-date">
+  <time datetime="2020-12-16T16:00:00.000Z" itemprop="datePublished">2020-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入React笔记 — Fiber
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="UI-f-state"><a href="#UI-f-state" class="headerlink" title="UI = f(state)"></a>UI = f(state)</h2><p>回到React最核心的构建UI过程，即UI = f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State，</p>
 <h2 id="f这个过程发生了什么"><a href="#f这个过程发生了什么" class="headerlink" title="f这个过程发生了什么"></a>f这个过程发生了什么</h2><h3 id="旧架构的过程"><a href="#旧架构的过程" class="headerlink" title="旧架构的过程"></a>旧架构的过程</h3><p>从React15版本旧架构来说，react这个过程共做两件事，第一是根据新的state计算出新的vdom数据，第二是<br>将新vdom更新到页面上去。<br>第一阶段React称之为Reconciler协调器，大名鼎鼎的diff算法就发生在这里，它将生成最新的vdom数据。<br>第二阶段称为Render渲染器，它的职责则是将生成的vdom数据更新到页面上。<br>那么这个过程有什么问题呢，最大的硬伤在于之前的协调器这个过程遍历的时候是通过递归的方式的，所以原先的设计也被称为Stack Reconciler。这个深度优先的查找遍历树的过程是不可中断的，也就是说setState一旦发起一次更新好，就必须一直运行下去。设想这样一个场景，当页面变得非常复杂，vdom树结构也很庞大时候，setState执行更新，遍历生成新vdom树需要很长的时间，这时候用户在input输入框中编辑输入，新的更新需要立即响应到页面，但React前一个协调任务无法中断，导致用户输入的时候发现无法显示到屏幕上，自然觉得非常卡顿了。</p>
 <p>所以新架构的首要解决问题，以便在更高优先级的更新任务来临的时候，可以中断前一个优先级低的更新任务，从而响应优先级高的任务。<br>于是React设计出了新的架构-Fiber。</p>
 <h2 id="Fiber是什么"><a href="#Fiber是什么" class="headerlink" title="Fiber是什么"></a>Fiber是什么</h2><p>Fiber有多层涵义，</p>
@@ -49,4 +147,195 @@
 </li>
 </ol>
 <p>每一类事件都被赋予了一个timeout，具体的优先级计算就是用现在的时间+timeout，得出过期时间expirationTime，然后看谁的优先级更大，则这个更新会被优先执行。</p>
-</div><div class="tags"><a href="/tags/React/"><i class="fa fa-tag"></i>React</a></div><div class="post-nav"><a class="pre" href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">深入React笔记 — hooks漫谈</a><a class="next" href="/2020/01/04/2019%E6%80%BB%E7%BB%93/">2019总结</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://example.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/React/" style="font-size: 15px;">React</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 15px;">生活</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">深入React笔记 — hooks漫谈</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">深入React笔记 — Fiber</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/04/2019%E6%80%BB%E7%BB%93/">2019总结</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Hexo.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://example.com/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" data-id="ckj11nbnz0002ib5i4vov0isv" class="article-share-link" data-share="baidu" data-title="深入React笔记 — Fiber">分享到</a>
+      
+
+      
+        <a href="http://example.com/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          深入React笔记 — hooks漫谈
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/04/2019%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">2019总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/12/17/深入React笔记—React Fiber设计理解总结/" data-title="深入React笔记 — Fiber" data-url="http://example.com/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/">深入React笔记 — hooks漫谈</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">深入React笔记 — Fiber</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/04/2019%E6%80%BB%E7%BB%93/">2019总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a>
+    </div>
+  </div>
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 MosinNg<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
