@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>深入React笔记 — Fiber | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="深入React笔记—React Fiber设计理解总结UI = f(state)回到React最核心的构建UI过程，即UI = f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State，
+f这个过程发生了什么旧架构的过程从Rea">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="深入React笔记 — Fiber"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Hexo</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/null">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-深入React笔记—React Fiber设计理解总结" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-12-16T16:00:00.000Z"><a href="/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">2020-12-17</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">深入React笔记 — Fiber</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="深入React笔记—React-Fiber设计理解总结"><a href="#深入React笔记—React-Fiber设计理解总结" class="headerlink" title="深入React笔记—React Fiber设计理解总结"></a>深入React笔记—React Fiber设计理解总结</h1><h2 id="UI-f-state"><a href="#UI-f-state" class="headerlink" title="UI = f(state)"></a>UI = f(state)</h2><p>回到React最核心的构建UI过程，即UI = f(state)，在这个过程中，遵循函数式编程的思想，State是不变的，每一次需要改变State，都需要复制一份新的State，</p>
+<h2 id="f这个过程发生了什么"><a href="#f这个过程发生了什么" class="headerlink" title="f这个过程发生了什么"></a>f这个过程发生了什么</h2><h3 id="旧架构的过程"><a href="#旧架构的过程" class="headerlink" title="旧架构的过程"></a>旧架构的过程</h3><p>从React15版本旧架构来说，react这个过程共做两件事，第一是根据新的state计算出新的vdom数据，第二是<br>将新vdom更新到页面上去。<br>第一阶段React称之为Reconciler协调器，大名鼎鼎的diff算法就发生在这里，它将生成最新的vdom数据。<br>第二阶段称为Render渲染器，它的职责则是将生成的vdom数据更新到页面上。<br>那么这个过程有什么问题呢，最大的硬伤在于之前的协调器这个过程遍历的时候是通过递归的方式的，所以原先的设计也被称为Stack Reconciler。这个深度优先的查找遍历树的过程是不可中断的，也就是说setState一旦发起一次更新好，就必须一直运行下去。设想这样一个场景，当页面变得非常复杂，vdom树结构也很庞大时候，setState执行更新，遍历生成新vdom树需要很长的时间，这时候用户在input输入框中编辑输入，新的更新需要立即响应到页面，但React前一个协调任务无法中断，导致用户输入的时候发现无法显示到屏幕上，自然觉得非常卡顿了。</p>
+<p>所以新架构的首要解决问题，以便在更高优先级的更新任务来临的时候，可以中断前一个优先级低的更新任务，从而响应优先级高的任务。<br>于是React设计出了新的架构-Fiber。</p>
+<h2 id="Fiber是什么"><a href="#Fiber是什么" class="headerlink" title="Fiber是什么"></a>Fiber是什么</h2><p>Fiber有多层涵义，</p>
+<ol>
+<li>首先从计算机名称的角度来说，Fiber指的类似于协程，线程的调度单位。</li>
+</ol>
+<p>维基百科上的解释：</p>
+<blockquote>
+<p>在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8">计算机科学</a>中，<strong>纤程</strong>（英语：Fiber）是一种最轻量化的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B">线程</a>（lightweight threads）。它是一种用户态线程（user thread），让<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F">应用程序</a>可以独立决定自己的线程要如何运作。操作系统<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%86%85%E6%A0%B8">内核</a>不能看见它，也不会为它进行<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%8E%92%E7%A8%8B">调度</a>。<br>就像一般的线程，纤程有自己的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AE%9A%E5%9D%80%E7%A9%BA%E9%96%93">寻址空间</a>。但是纤程采取合作式多任务（Cooperative multitasking），而线程采取先占式多任务（Pre-emptive multitasking）。应用程序可以在一个线程环境中创建多个纤程，然后手动运行它。纤程不会被自动运行，必须要由<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F">应用程序</a>自己指定让它运行，或换到下一个纤程。<br>跟线程相比，纤程较不需要<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1">操作系统</a>的支持。</p>
+</blockquote>
+<p>这意味着，React将每次协调任务视作一个<strong>纤程</strong>，React可以任意调度中断每次Fiber。</p>
+<ol start="2">
+<li>其次Fiber在React指的是新vdom结构，React会将整个页面重构成用Fiber树来表达的数据结构。</li>
+</ol>
+<p>下图是网上找的数据结构示意图。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/197690/1605935969176-f5be9499-669c-4ca1-8e9e-7326a7147878.png#align=left&display=inline&height=253&margin=%5Bobject%20Object%5D&name=image.png&originHeight=309&originWidth=550&size=174859&status=done&style=none&width=450" alt="image.png"></p>
+<h3 id="Fiber如何解决问题的"><a href="#Fiber如何解决问题的" class="headerlink" title="Fiber如何解决问题的"></a>Fiber如何解决问题的</h3><p>如上提出的React响应高优先的问题，Fiber是如何解决的呢。</p>
+<ol>
+<li>可中断的协调过程。前面已经讲了，为了不使一个更新任务运行时长过长，阻塞高优先级任务，必须在协调过程中设计成可以中断执行的任务。所以React设计了刚刚将了Fiber数据结构，它看似是个树，实际却是用链表连接起来的，整个过程表面是深度优先遍历，实际操作是链表的遍历，这样就可以在执行过程中任意中断遍历了。</li>
+<li>双缓存树设计。这个是为了解决页面抖动过程的，在图像领域里面用的很多。具体的来讲，就是当前页面状态是一个Fiber树（currentFiber），协调过程中又有一个正在计算的Fiber树（workInProgressFiber），在后台计算好新的Fiber树后，才会替换现在的Fiber树，避免出现更新中断的情况。</li>
+<li>时间切片技术，这个是为了优化游览器主渲染进程的。听起来挺牛逼的，其实就是防止游览器渲染进程正在做大事的时候，React突然塞入一大堆更新计算，导致游览器卡顿的。React现在接到setState更新的时候，如果不是优先级最高的任务（过期任务），是讲这个任务塞入一个全局的异步更新队列里面，然后用类似requestAnimationFrame（React没有用这个api，而且自己实现模拟了这个api）的函数将任务等待游览器空闲的时候才执行。使得每次更新任务不会太长，理想情况不超过16ms（因为要达到60帧，1000 / 60, React的时间切片是5ms执行一次）。</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/197690/1606050805641-75ffd97f-d8e9-433f-b07b-d0120ae29bd6.png#align=left&display=inline&height=148&margin=%5Bobject%20Object%5D&name=image.png&originHeight=296&originWidth=794&size=181167&status=done&style=none&width=397" alt="image.png"></p>
+<ol start="4">
+<li>增加优先级调度模块，在原来React过程中，协调器计算出新的vdom结构后，会直接交给渲染器执行，而React16后，在这两个过程前，又新增了调度模块，负责调度任务优先级。react将事件分为三类：<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>解释</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DiscreteEvent</td>
+<td>离散事件，这些事件都是离散触发的</td>
+<td>blur、focus、 click、 submit、 touchStart</td>
+</tr>
+<tr>
+<td>UserBlockingEvent</td>
+<td>用户阻塞事件，这些事件会阻塞用户的交互</td>
+<td>touchMove、mouseMove、scroll、drag、dragOver</td>
+</tr>
+<tr>
+<td>ContinuousEvent</td>
+<td>连续事件，需要同步执行，不能被中断，优先级最高。</td>
+<td>load、error、loadStart、abort、animationEnd</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<p>每一类事件都被赋予了一个timeout，具体的优先级计算就是用现在的时间+timeout，得出过期时间expirationTime，然后看谁的优先级更大，则这个更新会被优先执行。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/React/">React</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://example.com/2020/12/17/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%E2%80%94React%20Fiber%E8%AE%BE%E8%AE%A1%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="example.com">
+  </form>
+</div>
+
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/React/">React</a><small>2</small></li>
+  
+    <li><a href="/tags/%E7%94%9F%E6%B4%BB/">生活</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 John Doe
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
