@@ -4,19 +4,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>2019总结 | 很有精神的博客</title>
+  <title>第三方cookie | 很有精神的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="生活2019对我而言是非常值得纪念的一年，完成了许多大事。2019.5.3回老家办了一场热热闹闹的婚礼，婚礼的筹备基本上我俩都没参与过，父母在老家准备好了，我俩飞回去结完婚又滚回来上班了。下半年老婆又怀孕了，给我非常大的惊喜，感觉责任又重了一层，期待明年的鼠宝宝。今年没出去旅游。 工作上半年在老东家一度被搞得很头大，虽然是绩效拿了个A，不过感觉毫无进步，每天处理一些琐事，在BU换了老板之后，所在业">
+  <meta name="description" content="最近做了一个项目，在其他公司域名下用iframe锲入我们的系统，但发现cookie无法发送，排查后发现chrome 87版本后对页面第三方域名的cookie做了非常严格的限制。 SameSite问题出在cookie SameSite这个属性上，看介绍应该是Chrome 51就新增了。 这个属性有三个值：  Strict Lax None  Strict这个最为严格，Chrome 87后，默认的co">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2019总结">
-<meta property="og:url" content="http://example.com/2020/01/04/2019%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="第三方cookie">
+<meta property="og:url" content="http://example.com/2020/12/24/%E7%AC%AC%E4%B8%89%E6%96%B9cookie/index.html">
 <meta property="og:site_name" content="很有精神的博客">
-<meta property="og:description" content="生活2019对我而言是非常值得纪念的一年，完成了许多大事。2019.5.3回老家办了一场热热闹闹的婚礼，婚礼的筹备基本上我俩都没参与过，父母在老家准备好了，我俩飞回去结完婚又滚回来上班了。下半年老婆又怀孕了，给我非常大的惊喜，感觉责任又重了一层，期待明年的鼠宝宝。今年没出去旅游。 工作上半年在老东家一度被搞得很头大，虽然是绩效拿了个A，不过感觉毫无进步，每天处理一些琐事，在BU换了老板之后，所在业">
+<meta property="og:description" content="最近做了一个项目，在其他公司域名下用iframe锲入我们的系统，但发现cookie无法发送，排查后发现chrome 87版本后对页面第三方域名的cookie做了非常严格的限制。 SameSite问题出在cookie SameSite这个属性上，看介绍应该是Chrome 51就新增了。 这个属性有三个值：  Strict Lax None  Strict这个最为严格，Chrome 87后，默认的co">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-01-03T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-12-23T06:49:21.302Z">
+<meta property="article:published_time" content="2020-12-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-24T13:51:06.129Z">
 <meta property="article:author" content="MosinNg">
-<meta property="article:tag" content="生活">
+<meta property="article:tag" content="游览器">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="很有精神的博客" type="application/atom+xml">
@@ -71,10 +71,10 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-2019总结" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-第三方cookie" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/01/04/2019%E6%80%BB%E7%BB%93/" class="article-date">
-  <time datetime="2020-01-03T16:00:00.000Z" itemprop="datePublished">2020-01-04</time>
+    <a href="/2020/12/24/%E7%AC%AC%E4%B8%89%E6%96%B9cookie/" class="article-date">
+  <time datetime="2020-12-23T16:00:00.000Z" itemprop="datePublished">2020-12-24</time>
 </a>
     
   </div>
@@ -85,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      2019总结
+      第三方cookie
     </h1>
   
 
@@ -93,36 +93,89 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h2><p>2019对我而言是非常值得纪念的一年，完成了许多大事。<br>2019.5.3回老家办了一场热热闹闹的婚礼，婚礼的筹备基本上我俩都没参与过，父母在老家准备好了，我俩飞回去结完婚又滚回来上班了。<br>下半年老婆又怀孕了，给我非常大的惊喜，感觉责任又重了一层，期待明年的鼠宝宝。<br>今年没出去旅游。</p>
-<h2 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h2><p>上半年在老东家一度被搞得很头大，虽然是绩效拿了个A，不过感觉毫无进步，每天处理一些琐事，在BU换了老板之后，所在业务部门也被边缘化了，业务不停的折腾搞得技术部门也没信心了。<br>不过上半年算是读完了vue.js的源码，不多的进步。<br>下半年七月份终于下定决心换了一次工作，从老东家出来去了一个创业公司，辞职的理由就两条</p>
-<ol>
-<li>对所在的业务部门发展丧失信心了，感觉没啥前途</li>
-<li>收入0增长</li>
-</ol>
-<p>钱少受委屈了，一个字，溜。<br>最令我感动的是，我走的那天，leader专门跑过来问我几点办完手续，当我办完之后，集结了全团队的人送我到楼下，不管是不是例行公事，我反正是感动了。甚至还感觉对不起leader对我的期待。<br>去新创业公司后，最开始还是非常不适应，比之前忙多了，不过慢慢的适合节奏后，还是觉得挺靠谱的。新公司的业务前景不错，也有足够的盈利能力，团队也不错，在这场寒冬中仍然保持扩张的劲头，起码现在这个时间点回头看，觉得自己选择还是没错。<br>新公司在对前端的要求有点全栈的意思，app也是全flutter，内部系统也有很多有意思的项目用node，舞台也比较广阔，不光是撸HTML，可以有更多实践其他领域的机会。<br>于是下半年的重要进步就是flutter和一些原生的知识，另外写dart久了，再写动态语言js都有点不习惯，以前老觉得typesript没用，现在不自觉的用上了。</p>
-<h2 id="投资"><a href="#投资" class="headerlink" title="投资"></a>投资</h2><p>年初给自己定了个目标，说自己要今年被动收益要超过一万。没想到年末总结下来，投资收益大大超过了这个数，包括股票，基金，出租车库收入已经过4w了。<br>不过使我惊喜的不是这个收益数目，而是摸到了一点投资的门槛，开始读了很多投资的书，包括不限于《巴菲特致股东的信》，《投资最重要的事》和一些雪球出的《投资第一课》《手把手教你读财报》，也完成了mooc上清华大学的《财务分析》课程，瞎总结了一点自己的投资风格和思路，在雪球上写了一点总结文章 <a target="_blank" rel="noopener" href="https://xueqiu.com/5184145379/138219357">https://xueqiu.com/5184145379/138219357</a></p>
-<h2 id="读书和电影"><a href="#读书和电影" class="headerlink" title="读书和电影"></a>读书和电影</h2><p>今年很少去电影院，基本就是在家看已经免费的电影，所以印象最深的就是很多人吹的《流浪地球》大失所望，特效还行，故事是真的莫名其妙。<br>读书印象最深的除了一大堆投资书就是《曾国藩》，浩浩荡荡的三大本(在微信读书上看的），也开始理解为什么现在那么多人喜欢在曾国藩身上得到点东西。</p>
-<h2 id="祝福2020"><a href="#祝福2020" class="headerlink" title="祝福2020"></a>祝福2020</h2><p>期待2020</p>
-<ol>
-<li>期待自己的鼠宝宝</li>
-<li>期待自己能成为一名更加全栈的工程师</li>
-<li>期待投资上更成熟</li>
-<li>期待输出更多的文章</li>
-<li>期待一个更好的自己</li>
-</ol>
-<p>2019，再见了。</p>
+        <p>最近做了一个项目，在其他公司域名下用iframe锲入我们的系统，但发现cookie无法发送，排查后发现chrome 87版本后对页面第三方域名的cookie做了非常严格的限制。</p>
+<h2 id="SameSite"><a href="#SameSite" class="headerlink" title="SameSite"></a>SameSite</h2><p>问题出在cookie SameSite这个属性上，看介绍应该是Chrome 51就新增了。</p>
+<p>这个属性有三个值：</p>
+<ul>
+<li>Strict</li>
+<li>Lax</li>
+<li>None</li>
+</ul>
+<h3 id="Strict"><a href="#Strict" class="headerlink" title="Strict"></a>Strict</h3><p>这个最为严格，Chrome 87后，默认的cookie都被设置成了Strict，对于页面第三方域名的cookie完全不发送。</p>
+<p>影响最大的就是iframe锲入其他公司提供的服务页面或者是阿里京东在其他网站搞的广告投放。</p>
+<p>怎么解决，就要靠下面两个属性</p>
+<h3 id="Lax"><a href="#Lax" class="headerlink" title="Lax"></a>Lax</h3><p>设置为Lax的时候，默认也是不发送的，但除了GET表单或者链接除外，具体情况如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">请求类型</th>
+<th align="center">示例</th>
+<th align="right">正常情况</th>
+<th align="left">Lax</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">链接</td>
+<td align="center"><code>&lt;a href=&quot;...&quot;&gt;&lt;/a&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">发送 Cookie</td>
+</tr>
+<tr>
+<td align="left">预加载</td>
+<td align="center"><code>&lt;link rel=&quot;prerender&quot; href=&quot;...&quot;/&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">发送 Cookie</td>
+</tr>
+<tr>
+<td align="left">GET 表单</td>
+<td align="center"><code>&lt;form method=&quot;GET&quot; action=&quot;...&quot;&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">发送 Cookie</td>
+</tr>
+<tr>
+<td align="left">POST 表单</td>
+<td align="center"><code>&lt;form method=&quot;POST&quot; action=&quot;...&quot;&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">不发送</td>
+</tr>
+<tr>
+<td align="left">iframe</td>
+<td align="center"><code>&lt;iframe src=&quot;...&quot;&gt;&lt;/iframe&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">不发送</td>
+</tr>
+<tr>
+<td align="left">AJAX</td>
+<td align="center"><code>$.get(&quot;...&quot;)</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">不发送</td>
+</tr>
+<tr>
+<td align="left">Image</td>
+<td align="center"><code>&lt;img src=&quot;...&quot;&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">不发送</td>
+</tr>
+</tbody></table>
+<h3 id="None"><a href="#None" class="headerlink" title="None"></a>None</h3><p>这个就是完全解除这个限制，第三方域名都可以发送，但注意设置它的时候，需要同时设置Secure（表示cookie只有在https下生效）。</p>
+<h2 id="SameSite动机和例外"><a href="#SameSite动机和例外" class="headerlink" title="SameSite动机和例外"></a>SameSite动机和例外</h2><p>设置这个限制主要是为了防止CSRF攻击和限制厂商对用户隐私的追踪。</p>
+<p>不过apple做的更狠（测试了不完全的游览器，mac的qq也是这样），第三方域名直接不予发送，设置none也没用。除非用户自己在设置中选择允许网站跟踪（估计没人这么做）。</p>
+<p>怎么对付。</p>
+<p>如果是一定要兼容safari的话，对登录场景，可以直接参数发送登录凭证，或者带到header上来（不过这个会引起游览器发送一次options请求，因为会判定复杂请求）。</p>
+<p>对第三方广告来说，可以使用游览器指纹等追踪手段。</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904128557105166"></a></p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://example.com/2020/01/04/2019%E6%80%BB%E7%BB%93/" data-id="ckj13ic9h00009s5idvgo5q4h" class="article-share-link">分享到</a>
+        <a data-url="http://example.com/2020/12/24/%E7%AC%AC%E4%B8%89%E6%96%B9cookie/" data-id="ckj2wmf770000qy5id3n6hf29" class="article-share-link">分享到</a>
       
 
       
 
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%B8%E8%A7%88%E5%99%A8/" rel="tag">游览器</a></li></ul>
 
     </footer>
   </div>
@@ -130,15 +183,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/06/09/%E5%A6%82%E4%BD%95%E5%BC%80%E5%A7%8B%E4%B8%80%E4%B8%AA%E5%89%8D%E7%AB%AF%E8%84%9A%E6%89%8B%E6%9E%B6/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          如何开始一个前端脚手架
-        
-      </div>
-    </a>
   
+    <a href="/2020/12/23/%E6%B7%B1%E5%85%A5React%E7%AC%94%E8%AE%B0%20%E2%80%94%20hooks/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">深入React笔记 — hooks</div>
+    </a>
   
 </nav>
 
